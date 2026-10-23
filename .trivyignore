@@ -1,1 +1,5 @@
 # One ID per line, each with a justification comment.
+# Internet-facing by default; the module is an ALB and `internal = true` switches the scheme. Exposure is limited by ingress_cidrs and HTTPS-only listeners.
+AWS-0053
+# The ALB must reach its targets on arbitrary ports in the VPC, so egress is open by design; target-side security groups restrict inbound.
+AWS-0104
