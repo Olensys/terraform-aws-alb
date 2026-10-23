@@ -1,6 +1,6 @@
-# __NAME__
+# terraform-aws-alb
 
-__DESCRIPTION__
+Application Load Balancer with HTTPS-only listeners, HTTP redirect, TLS 1.3 policy and a managed security group
 
 ## Opinions
 
@@ -10,7 +10,7 @@ __DESCRIPTION__
 
 ```hcl
 module "this" {
-  source = "git::https://github.com/Olensys/__NAME__.git?ref=v1.0.0"
+  source = "git::https://github.com/Olensys/terraform-aws-alb.git?ref=v1.0.0"
 
   name = "example"
   context = {
