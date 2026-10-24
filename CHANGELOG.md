@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/Olensys/terraform-aws-alb/compare/v1.0.2...v1.0.3) (2026-10-24)
+
+
+### Bug Fixes
+
+* **examples:** unique application slug so concurrent integration runs do not collide ([#2](https://github.com/Olensys/terraform-aws-alb/issues/2)) ([9573e4b](https://github.com/Olensys/terraform-aws-alb/commit/9573e4b30f479fc9be0d9f57dd48a7bd5d0d62b7))
+
 ## [1.0.2](https://github.com/Olensys/terraform-aws-alb/compare/v1.0.1...v1.0.2) (2026-10-24)
 
 
