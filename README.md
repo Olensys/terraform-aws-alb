@@ -16,21 +16,21 @@ Application Load Balancer with HTTPS-only listeners, HTTP redirect, TLS 1.3 poli
 ## Usage
 
 ```hcl
-module "this" {
-  source = "git::https://github.com/Olensys/terraform-aws-alb.git?ref=v1.0.0"
+module "naming" {
+  source  = "git::https://github.com/Olensys/terraform-null-naming.git?ref=v1.0.1"
+  context = var.context
+}
 
-  name = "example"
-  context = {
-    organization = "olensys"
-    environment  = "dev"
-    application  = "example"
-    owner        = "platform"
-    cost_center  = "eng"
-  }
+module "alb" {
+  source  = "git::https://github.com/Olensys/terraform-aws-alb.git?ref=v1.0.1"
+  name    = module.naming.name
+  context = var.context
 
   vpc_id          = "vpc-0123456789abcdef0"
   subnet_ids      = ["subnet-0123456789abcdef0", "subnet-0123456789abcdef1"]
   certificate_arn = "arn:aws:acm:eu-west-1:123456789012:certificate/00000000-0000-0000-0000-000000000000"
+
+  tags = module.naming.tags
 }
 ```
 
