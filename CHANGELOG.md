@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/Olensys/terraform-aws-alb/compare/v1.0.1...v1.0.2) (2026-10-24)
+
+
+### Bug Fixes
+
+* run integration on change and weekly instead of nightly ([7ae3a31](https://github.com/Olensys/terraform-aws-alb/commit/7ae3a31f884c13325825f75eacb2b2b70986e181))
+
 ## 1.0.1
 
 ### Fixes
