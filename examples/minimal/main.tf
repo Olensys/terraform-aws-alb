@@ -26,11 +26,11 @@ variable "certificate_arn" {
 module "this" {
   source = "../../"
 
-  name = "example"
+  name = "olensys-test-alb"
   context = {
     organization = "olensys"
     environment  = "test"
-    application  = "example"
+    application  = "alb"
     owner        = "platform"
     cost_center  = "eng"
   }
