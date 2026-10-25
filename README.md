@@ -12,6 +12,7 @@ Application Load Balancer with HTTPS-only listeners, HTTP redirect, TLS 1.3 poli
 - `enable_deletion_protection = true` when `context.environment == "prod"`, otherwise false.
 - A security group is created with ingress 80 and 443 from each of `ingress_cidrs` and egress to all.
 - `internal` only toggles the scheme. Access logs are enabled only when `access_logs_bucket` is set (caller-owned bucket).
+- Integration: `examples/minimal` provisions its own certificate for `alb.<zone_domain>`, validated through Cloudflare. Inputs are `TF_VAR_vpc_id`, `TF_VAR_subnet_ids`, `TF_VAR_zone_id` and `TF_VAR_zone_domain` (default `tf-test.olensys.com`); `CLOUDFLARE_API_TOKEN` and `AWS_REGION` come from the environment.
 
 ## Usage
 

@@ -1,5 +1,6 @@
 # Run only by the nightly integration workflow, against real cloud credentials.
-# Requires TF_VAR_vpc_id, TF_VAR_subnet_ids and TF_VAR_certificate_arn for a real VPC and ACM certificate.
+# The example provisions its own listener certificate, validated through Cloudflare.
+# Inputs: TF_VAR_vpc_id, TF_VAR_subnet_ids, TF_VAR_zone_id (and optionally TF_VAR_zone_domain); CLOUDFLARE_API_TOKEN in the environment.
 run "apply_minimal" {
   command = apply
 
