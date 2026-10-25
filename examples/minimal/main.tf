@@ -5,6 +5,10 @@ terraform {
       source  = "hashicorp/aws"
       version = ">= 6.0, < 7.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = ">= 5.0, < 6.0"
+    }
   }
 }
 
@@ -18,9 +22,44 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
-variable "certificate_arn" {
-  description = "ACM certificate for the HTTPS listener."
+variable "zone_id" {
+  description = "Cloudflare zone ID of the test zone the certificate validation record is created in."
   type        = string
+}
+
+variable "zone_domain" {
+  description = "Domain of the Cloudflare test zone; the certificate is issued for alb.<zone_domain>."
+  type        = string
+  default     = "tf-test.olensys.com"
+}
+
+# Reads CLOUDFLARE_API_TOKEN from the environment.
+provider "cloudflare" {}
+
+resource "aws_acm_certificate" "alb" {
+  domain_name       = "alb.${var.zone_domain}"
+  validation_method = "DNS"
+  key_algorithm     = "EC_prime256v1"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+# One domain, no SANs: exactly one validation option.
+locals { validation = one(aws_acm_certificate.alb.domain_validation_options) }
+
+resource "cloudflare_dns_record" "validation" {
+  zone_id = var.zone_id
+  name    = trimsuffix(local.validation.resource_record_name, ".")
+  type    = local.validation.resource_record_type
+  content = trimsuffix(local.validation.resource_record_value, ".")
+  ttl     = 60
+}
+
+resource "aws_acm_certificate_validation" "alb" {
+  certificate_arn         = aws_acm_certificate.alb.arn
+  validation_record_fqdns = [cloudflare_dns_record.validation.name]
 }
 
 module "this" {
@@ -37,7 +76,7 @@ module "this" {
 
   vpc_id          = var.vpc_id
   subnet_ids      = var.subnet_ids
-  certificate_arn = var.certificate_arn
+  certificate_arn = aws_acm_certificate_validation.alb.certificate_arn
 }
 
 output "dns_name" {
