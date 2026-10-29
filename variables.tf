@@ -62,8 +62,14 @@ variable "additional_certificate_arns" {
   default     = []
 }
 
+variable "security_group_ids" {
+  description = "Existing security groups to attach to the load balancer. When set, the module creates no security group and ingress_cidrs is ignored."
+  type        = list(string)
+  default     = []
+}
+
 variable "ingress_cidrs" {
-  description = "IPv4 CIDR blocks allowed to reach ports 80 and 443."
+  description = "IPv4 CIDR blocks allowed to reach ports 80 and 443. Ignored when security_group_ids is set."
   type        = list(string)
   default     = ["0.0.0.0/0"]
   validation {

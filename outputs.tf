@@ -29,8 +29,8 @@ output "https_listener_arn" {
 }
 
 output "security_group_id" {
-  description = "ID of the security group managed by this module. Null when create is false."
-  value       = var.create ? module.this.security_group_id : null
+  description = "ID of the load balancer security group: the one created by this module, or the first of security_group_ids when set. Null when create is false."
+  value       = !var.create ? null : (local.use_existing_security_groups ? var.security_group_ids[0] : module.this.security_group_id)
 }
 
 output "tags" {
