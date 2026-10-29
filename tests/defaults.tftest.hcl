@@ -151,3 +151,16 @@ run "test_tags_contract" {
     error_message = "context.extra_tags must be merged."
   }
 }
+
+run "test_existing_security_groups" {
+  command = plan
+
+  variables {
+    security_group_ids = ["sg-0123456789abcdef0"]
+  }
+
+  assert {
+    condition     = output.security_group_id == "sg-0123456789abcdef0"
+    error_message = "security_group_id must be the supplied group when security_group_ids is set"
+  }
+}

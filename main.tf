@@ -7,6 +7,8 @@ locals {
   ssl_policy          = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   deletion_protection = var.context.environment == "prod"
 
+  use_existing_security_groups = length(var.security_group_ids) > 0
+
   # Opinion: HTTP always redirects to HTTPS; HTTPS answers 404 until the caller adds rules.
   listeners = {
     http = {
@@ -68,8 +70,9 @@ module "this" {
   enable_deletion_protection = local.deletion_protection
   drop_invalid_header_fields = true
 
-  create_security_group        = true
-  security_group_ingress_rules = local.ingress_rules
+  create_security_group        = !local.use_existing_security_groups
+  security_groups              = var.security_group_ids
+  security_group_ingress_rules = local.use_existing_security_groups ? {} : local.ingress_rules
   security_group_egress_rules = {
     all = {
       description = "Allow all outbound traffic"

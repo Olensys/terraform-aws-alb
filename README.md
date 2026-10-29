@@ -70,8 +70,9 @@ No resources.
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | ACM certificate ARN for the HTTPS:443 listener. Required whenever create is true; the module is HTTPS-only. | `string` | `null` | no |
 | <a name="input_create"></a> [create](#input\_create) | Whether to create any resources. Set false to create nothing. | `bool` | `true` | no |
 | <a name="input_idle_timeout_s"></a> [idle\_timeout\_s](#input\_idle\_timeout\_s) | Idle connection timeout in seconds. | `number` | `60` | no |
-| <a name="input_ingress_cidrs"></a> [ingress\_cidrs](#input\_ingress\_cidrs) | IPv4 CIDR blocks allowed to reach ports 80 and 443. | `list(string)` | <pre>[<br/>  "0.0.0.0/0"<br/>]</pre> | no |
+| <a name="input_ingress_cidrs"></a> [ingress\_cidrs](#input\_ingress\_cidrs) | IPv4 CIDR blocks allowed to reach ports 80 and 443. Ignored when security\_group\_ids is set. | `list(string)` | <pre>[<br/>  "0.0.0.0/0"<br/>]</pre> | no |
 | <a name="input_internal"></a> [internal](#input\_internal) | Whether the load balancer is internal. Only toggles the scheme; listeners stay HTTPS-only. | `bool` | `false` | no |
+| <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | Existing security groups to attach to the load balancer. When set, the module creates no security group and ingress\_cidrs is ignored. | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags merged onto every taggable resource, applied last. | `map(string)` | `{}` | no |
 
 ## Outputs
@@ -85,7 +86,7 @@ No resources.
 | <a name="output_id"></a> [id](#output\_id) | ID of the load balancer. Null when create is false. |
 | <a name="output_listener_config"></a> [listener\_config](#output\_listener\_config) | Listener configuration passed to the upstream module (no secrets). Null when create is false. |
 | <a name="output_name"></a> [name](#output\_name) | Name of the load balancer. Null when create is false. |
-| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | ID of the security group managed by this module. Null when create is false. |
+| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | ID of the load balancer security group: the one created by this module, or the first of security\_group\_ids when set. Null when create is false. |
 | <a name="output_ssl_policy"></a> [ssl\_policy](#output\_ssl\_policy) | TLS policy applied to the HTTPS listener. Null when create is false. |
 | <a name="output_tags"></a> [tags](#output\_tags) | Tags applied to every taggable resource, with context.extra\_tags merged in. Null when create is false. |
 | <a name="output_zone_id"></a> [zone\_id](#output\_zone\_id) | Route 53 hosted zone ID of the load balancer, for alias records. Null when create is false. |
