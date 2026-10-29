@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/Olensys/terraform-aws-alb/compare/v1.0.3...v1.1.0) (2026-10-29)
+
+
+### Features
+
+* add security_group_ids to attach existing security groups ([#7](https://github.com/Olensys/terraform-aws-alb/issues/7)) ([cc04905](https://github.com/Olensys/terraform-aws-alb/commit/cc049057e8e19509fb050e330e47292e49c2dc24))
+
+
+### Bug Fixes
+
+* **examples:** provision the listener certificate and validate through Cloudflare ([#4](https://github.com/Olensys/terraform-aws-alb/issues/4)) ([61d7e7d](https://github.com/Olensys/terraform-aws-alb/commit/61d7e7daa34cd6dd77e920ec960ac929452f7d96))
+
 ## [1.0.3](https://github.com/Olensys/terraform-aws-alb/compare/v1.0.2...v1.0.3) (2026-10-24)
 
 
