@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/Olensys/terraform-aws-alb/compare/v1.1.0...v1.1.1) (2026-11-13)
+
+
+### Bug Fixes
+
+* tag the minimal example's load balancer through the naming module ([#8](https://github.com/Olensys/terraform-aws-alb/issues/8)) ([2bedaf8](https://github.com/Olensys/terraform-aws-alb/commit/2bedaf8c1b26ace2c6fb3a46685c840e64298a1b))
+
 ## [1.1.0](https://github.com/Olensys/terraform-aws-alb/compare/v1.0.3...v1.1.0) (2026-10-29)
 
 
